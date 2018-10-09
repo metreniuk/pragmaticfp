@@ -1,4 +1,6 @@
-# This is the title of my deck
+export { book as theme } from 'mdx-deck/themes'
+
+# TODO timestamp for actions
 ---
 # About Me
 ---
@@ -6,8 +8,13 @@
 <CodeSnippet />
 ```
 ---
-import Demo from './components/Demo'
+import {PlayerWorld} from './containers'
 
-<Demo />
+<PlayerWorld />
+---
+---
+import {WallWorld} from './containers'
+
+<WallWorld />
 ---
 # The end
