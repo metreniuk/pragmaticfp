@@ -1,4 +1,8 @@
 .App {
-  font-family: sans-serif;
+  font-family: "Nunito", sans-serif;
   text-align: center;
+  font-weight: 600;
+  font-size: 38px;
+  width: 300px;
+  height: 300px;
 }
