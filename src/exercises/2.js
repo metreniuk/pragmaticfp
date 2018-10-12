@@ -25,7 +25,7 @@ function isGood(student) {
   // ex: "student.name" will return the name of the student
 
   // Write you code here 👇
-  return student.grade > 6;
+  return student;
 }
 
 const students = [
