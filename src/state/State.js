@@ -70,11 +70,6 @@ class State extends Component {
     const currentAction = this.actions[this.travelIndex];
     const nextAction = this.actions[this.travelIndex + 1];
 
-    console.log({ currentAction, nextAction });
-    console.log(this.travelIndex, this.stateHistory.length);
-    console.log(this.actions);
-    console.log(this.stateHistory);
-
     const timeBetweenNextActions = nextAction
       ? nextAction.meta.timestamp - currentAction.meta.timestamp
       : this.travelStart - currentAction.meta.timestamp;

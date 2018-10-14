@@ -18,8 +18,10 @@ Notes for me:
 
 // 🦄: The reducer should return a NEW state based on the action it receives.
 // The action has a "type" property that indicates what is happening in the app.
-// - on {type: 'INCREMENT'} the new state should be greater by one
-// - on {type: 'DECREMENT'} the new state should be less by one
+// -----------
+// The actions that can be dispatched are:
+// - {type: 'INCREMENT'} the new state should be greater by one
+// - {type: 'DECREMENT'} the new state should be less by one
 // The state is a number that is the value of the counter.
 function reducer(state, action) {
   // Write you code here 👇

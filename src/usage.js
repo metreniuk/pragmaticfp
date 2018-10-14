@@ -4,8 +4,9 @@ import Ex1 from "./exercises/1";
 import Ex2 from "./exercises/2";
 import Ex3 from "./exercises/3";
 import Ex4 from "./exercises/4";
+import Ex5 from "./exercises/5";
 
-const routes = [Ex1, Ex2, Ex3, Ex4].map((C, i, arr) => (
+const routes = [Ex1, Ex2, Ex3, Ex4, Ex5].map((C, i, arr) => (
   <Route
     key={i}
     path={`/${i + 1}`}
@@ -30,7 +31,7 @@ const routes = [Ex1, Ex2, Ex3, Ex4].map((C, i, arr) => (
 const Root = () => (
   <BrowserRouter>
     <Switch>
-      <Route exact path="/" component={Ex4} />
+      <Route exact path="/" component={Ex5} />
       {routes}
     </Switch>
   </BrowserRouter>
