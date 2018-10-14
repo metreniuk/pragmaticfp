@@ -3,12 +3,14 @@ import { BrowserRouter, Route, Link, Switch } from "react-router-dom";
 import Ex1 from "./exercises/1";
 import Ex2 from "./exercises/2";
 import Ex3 from "./exercises/3";
+import Ex4 from "./exercises/4";
 
-const routes = [Ex1, Ex2, Ex3].map((C, i, arr) => (
+const routes = [Ex1, Ex2, Ex3, Ex4].map((C, i, arr) => (
   <Route
+    key={i}
     path={`/${i + 1}`}
     render={() => (
-      <Fragment key={i}>
+      <Fragment>
         {!!i && (
           <Link className="link left" to={`/${i}`}>
             {"<"}- Exercise {i}
@@ -25,14 +27,10 @@ const routes = [Ex1, Ex2, Ex3].map((C, i, arr) => (
   />
 ));
 
-// <Route path="/1" component={Ex1} />
-// <Route path="/2" component={Ex2} />
-// <Route path="/3" component={Ex3} />
-
 const Root = () => (
   <BrowserRouter>
     <Switch>
-      <Route exact path="/" component={Ex3} />
+      <Route exact path="/" component={Ex4} />
       {routes}
     </Switch>
   </BrowserRouter>
