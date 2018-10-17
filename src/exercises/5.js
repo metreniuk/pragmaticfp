@@ -2,7 +2,6 @@ import React, { Fragment } from "react";
 import State from "../state/State";
 import PlayerMover from "../components/PlayerMover";
 import { Player, Wrapper, World } from "../components/styled";
-import Slider from "../components/Slider";
 /*
 Exercise 5
 Theory: 
@@ -57,18 +56,18 @@ const Usage = props => {
 
   return (
     <Wrapper>
-      <World>
-        <State initialState={initialState} reducer={reducer}>
-          {({ state, dispatch, playHistory, slide }) => (
-            <Fragment>
-              {/*<Slider onChange={slide} />*/}
+      <State initialState={initialState} reducer={reducer}>
+        {({ state, dispatch, playHistory, slide }) => (
+          <Fragment>
+            <button onClick={() => dispatch({ type: "RESET" })}>reset</button>
+            <World>
               <PlayerMover dispatch={dispatch}>
                 {() => <Player x={state.x} y={state.y} onClick={playHistory} />}
               </PlayerMover>
-            </Fragment>
-          )}
-        </State>
-      </World>
+            </World>
+          </Fragment>
+        )}
+      </State>
     </Wrapper>
   );
 };

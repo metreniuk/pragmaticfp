@@ -1,27 +1,50 @@
 import React, { Fragment } from "react";
 import State from "../state/State";
 import PlayerMover from "../components/PlayerMover";
-import WallMover from "../components/WallMover";
-import { Player, Wall, Hole, Wrapper, World } from "../components/styled";
-import Slider from "../components/Slider";
+import { Player, Wrapper, World } from "../components/styled";
+
 /*
-Exercise 6
-Theory: Function composition??
-Practice: Ramda
+Exercise 7
+Theory: Composability
+Practice: Ramda??
 */
 
 /*
 Notes for me:
+- We solved some problems, but let's see what's left.
+- Let's look for patterns inside "handlePlayerMove".
+  * inside each "if" statement we are changning only one property
+  * inside each "if" statement we are adding or subtracting the property
+- Let's solve the issues:
+  * (1) we can map the operation to an identifier or a key
+  * (2) we can abstract the addition or the substraction of a property with a direction
 
+Mention the pattern: "obj[key]()"
+
+- What we gained:
+  * (1) no conditionals DRY
+  * (1) no free space where to write code == no space for human error (don't be too marginal)
+  * (2) code reuse, who can tell what we can reuse in other part of the app (show the app)?
+    we can reuse the same code for the player and for the wall (they both move left)
+
+We can achieve even better result using specific functions that are beyond this workshop
 */
 
-function playerReducer(player, action) {
-  const { x, y } = player;
-  const { type, key, step } = action;
+function handleActions(handlers) {
+  return (state, action) => {
+    const { type } = action;
 
-  if (type !== "PLAYER_MOVED") {
-    return player;
-  }
+    if (handlers.hasOwnProperty(type)) {
+      const reducer = handlers[type];
+      return reducer(state, action);
+    }
+    return state;
+  };
+}
+
+function handlePlayerMove(state, action) {
+  const { x, y } = state;
+  const { key, step } = action;
 
   if (key === "w") {
     return { x: x, y: y + step };
@@ -39,102 +62,82 @@ function playerReducer(player, action) {
     return { x: x + step, y: y };
   }
 
-  return player;
+  return state;
 }
 
-// The state indicates the coordinates of all the walls
-// (and some more information about the holes that doesn't matter for now).
-// It has a similar shape:
-// [{x: 200, holes: []}, {x: 240, holes: []}, {x: 300, holes: []}, ...]
-function wallsReducer(walls, action) {
-  // You can use these constants in your code
-  const { type, index, step } = action;
-
-  if (type === "WALL_MOVED") {
-    // 1.
-    const newWalls = [];
-
-    for (let i = 0; i < walls.length; i++) {
-      let wall = walls[i];
-      if (i === index) {
-        wall = {
-          x: wall.x - step,
-          holes: wall.holes
-        };
-      }
-
-      newWalls.push(wall);
-    }
-
-    // 2.
-    // const newWalls = walls.map(
-    //   (wall, i) => (i === index ? { x: wall.x - step, holes: wall.holes } : wall)
-    // );
-    return newWalls;
-  }
-
-  return walls;
+function handleReset() {
+  return { x: 0, y: 0 };
 }
 
-function reducer(state, action) {
-  return {
-    player: playerReducer(state.player, action),
-    walls: wallsReducer(state.walls, action)
-  };
-}
+// 1
+
+// const playerMoves = {
+//   w: (state, action) => ({ x: state.x, y: state.y + action.step }),
+//   s: (state, action) => ({ x: state.x, y: state.y - action.step }),
+//   a: (state, action) => ({ x: state.x - action.step, y: state.y }),
+//   d: (state, action) => ({ x: state.x + action.step, y: state.y })
+// };
+
+// const handlePlayerMove = (state, action) => {
+//   const reducer = playerMoves[action.key];
+
+//   return reducer(state, action);
+// };
+
+// 2
+
+// const moveUp = (state, action) => ({ x: state.x, y: state.y + action.step });
+// const moveDown = (state, action) => ({ x: state.x, y: state.y - action.step });
+// const moveLeft = (state, action) => ({ x: state.x - action.step, y: state.y });
+// const moveRight = (state, action) => ({ x: state.x + action.step, y: state.y });
+
+// const playerMoves = {
+//   w: moveUp,
+//   s: moveDown,
+//   a: moveLeft,
+//   d: moveRight
+// };
+
+// const handlePlayerMove = (state, action) =>
+//   playerMoves[action.key](state, action);
+
+// const transforms = step => ({
+//   w: { y: add(step) },
+//   s: { y: minus(step) },
+//   a: { x: minus(step) },
+//   d: { x: add(step) }
+// });
+
+// The state indicates the coordinates of the player.
+// It has the following shape: {x: 0, y: 0}
+const reducer = handleActions({
+  PLAYER_MOVED: handlePlayerMove,
+  RESET: handleReset
+});
 
 // 🌈This is a fancy way to write html inside JavaScript
 // think of it just as html on steroids.
 // Don't touch it 👀(at least if you don't know what you are doing).
 const Usage = props => {
   const initialState = {
-    player: {
-      x: 0,
-      y: 0
-    },
-    walls: [
-      {
-        x: 400,
-        holes: [{ y: 30, size: 40 }, { y: 100, size: 20 }]
-      }
-    ]
+    x: 0,
+    y: 0
   };
 
   return (
     <Wrapper>
-      <World>
-        <State initialState={initialState} reducer={reducer}>
-          {({ state, dispatch, playHistory, slide }) => (
-            <Fragment>
+      <State initialState={initialState} reducer={reducer}>
+        {({ state, dispatch, playHistory, slide }) => (
+          <Fragment>
+            <button onClick={() => dispatch({ type: "RESET" })}>reset</button>
+            <World>
               <PlayerMover dispatch={dispatch}>
-                {() => (
-                  <Player
-                    x={state.player.x}
-                    y={state.player.y}
-                    onClick={playHistory}
-                  />
-                )}
+                {() => <Player x={state.x} y={state.y} onClick={playHistory} />}
               </PlayerMover>
-              {state.walls.map((wall, index) => (
-                <WallMover
-                  dispatch={dispatch}
-                  index={index}
-                  isFrozen={true}
-                  key={index}
-                >
-                  {({ toggleFrozen }) => (
-                    <Wall x={wall.x} onClick={toggleFrozen}>
-                      {wall.holes.map(({ y, size }, i) => (
-                        <Hole key={i} y={y} size={size} />
-                      ))}
-                    </Wall>
-                  )}
-                </WallMover>
-              ))}
-            </Fragment>
-          )}
-        </State>
-      </World>
+            </World>
+          </Fragment>
+        )}
+      </State>
     </Wrapper>
   );
 };

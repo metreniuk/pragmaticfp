@@ -1,4 +1,4 @@
-import { add, evolve, subtract, flip, curry } from "ramda";
+import { add, evolve, subtract, flip } from "ramda";
 // as a test ui it could be the app that lacks only the reducer
 
 const minus = flip(subtract);

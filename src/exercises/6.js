@@ -2,7 +2,6 @@ import React, { Fragment } from "react";
 import State from "../state/State";
 import PlayerMover from "../components/PlayerMover";
 import { Player, Wrapper, World } from "../components/styled";
-import Slider from "../components/Slider";
 /*
 Exercise 6
 Theory: Higher-order function
@@ -162,7 +161,6 @@ const Usage = props => {
           <Fragment>
             <button onClick={() => dispatch({ type: "RESET" })}>reset</button>
             <World>
-              {/*<Slider onChange={slide} />*/}
               <PlayerMover dispatch={dispatch}>
                 {() => <Player x={state.x} y={state.y} onClick={playHistory} />}
               </PlayerMover>
