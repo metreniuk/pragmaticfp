@@ -13,7 +13,9 @@ Notes for me:
 - Why is it important? Because it is totally predictable. 
   You can see what is happening in the system. 
   Nothing is hidden (bugs included).
-- Reducer always returns a state
+  It is very useful when the project grows.
+  TODO: Gather more clear benefits of redux
+- Reducer always returns a state (explain why)
 */
 
 // 🦄: The reducer should return a NEW state based on the action it receives.

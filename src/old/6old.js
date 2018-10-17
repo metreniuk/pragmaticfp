@@ -6,42 +6,57 @@ import { Player, Wall, Hole, Wrapper, World } from "../components/styled";
 import Slider from "../components/Slider";
 /*
 Exercise 6
-Theory: Function composition??
-Practice: Ramda
+Theory: ???
+Practice: Wall reducer
 */
 
 /*
 Notes for me:
+TODO: Add a move wall button
 
 */
 
+// ------
+// The state indicates the coordinates of the player.
+// It has the following shape: {x: 0, y: 0}
 function playerReducer(player, action) {
   const { x, y } = player;
   const { type, key, step } = action;
 
-  if (type !== "PLAYER_MOVED") {
-    return player;
-  }
+  if (type === "PLAYER_MOVED") {
+    if (key === "w") {
+      return { x: x, y: y + step };
+    }
 
-  if (key === "w") {
-    return { x: x, y: y + step };
-  }
+    if (key === "s") {
+      return { x: x, y: y - step };
+    }
 
-  if (key === "s") {
-    return { x: x, y: y - step };
-  }
+    if (key === "a") {
+      return { x: x - step, y: y };
+    }
 
-  if (key === "a") {
-    return { x: x - step, y: y };
-  }
-
-  if (key === "d") {
-    return { x: x + step, y: y };
+    if (key === "d") {
+      return { x: x + step, y: y };
+    }
   }
 
   return player;
 }
 
+// 🦄: The reducer should return a NEW state based on the action it receives.
+// The action has a "type" property that indicates what is happening in the app.
+// ------
+// In this example only one type of action can be dispatched:
+// - {type: 'WALL_MOVED'}
+// But the action can have other useful properties except of "type".
+// Our action have following additional properties:
+// - index: the index of the wall that is moving
+// - step: the distance that the wall is moving
+// Ex: {type: 'PLAYER_MOVED', key:'w', step: 30}
+// Tip: you can use "console.log(action)" to see that is inside an action.
+// Just click on the wall to start moving (dispatching actions)
+// ------
 // The state indicates the coordinates of all the walls
 // (and some more information about the holes that doesn't matter for now).
 // It has a similar shape:
@@ -50,28 +65,7 @@ function wallsReducer(walls, action) {
   // You can use these constants in your code
   const { type, index, step } = action;
 
-  if (type === "WALL_MOVED") {
-    // 1.
-    const newWalls = [];
-
-    for (let i = 0; i < walls.length; i++) {
-      let wall = walls[i];
-      if (i === index) {
-        wall = {
-          x: wall.x - step,
-          holes: wall.holes
-        };
-      }
-
-      newWalls.push(wall);
-    }
-
-    // 2.
-    // const newWalls = walls.map(
-    //   (wall, i) => (i === index ? { x: wall.x - step, holes: wall.holes } : wall)
-    // );
-    return newWalls;
-  }
+  // Write you code here 👇
 
   return walls;
 }

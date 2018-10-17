@@ -11,10 +11,10 @@ Practice: Player reducer
 
 /*
 Notes for me:
-Now you are ready to do some real FP stuff 😎.
+- Introduce the "PLAYER_MOVED" action
 - It is good to receive all properties from the action (ex: step)
   The reducer is responsible for the how the state changes not how much
-
+- Introduce a new "RESET" action
 */
 
 // 🦄: The reducer should return a NEW state based on the action it receives.
