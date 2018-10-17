@@ -5,15 +5,18 @@ import Ex2 from "./exercises/2";
 import Ex3 from "./exercises/3";
 import Ex4 from "./exercises/4";
 import Ex5 from "./exercises/5";
+import Ex6 from "./exercises/6";
 
-const routes = [Ex1, Ex2, Ex3, Ex4, Ex5].map((C, i, arr) => (
+// TODO Fix the bug with "/"
+const routes = [Ex1, Ex2, Ex3, Ex4, Ex5, Ex6].map((C, i, arr) => (
   <Route
     key={i}
-    path={`/${i + 1}`}
+    path={i === 0 ? "/" : `/${i + 1}`}
+    exact={i === 0}
     render={() => (
       <Fragment>
         {!!i && (
-          <Link className="link left" to={`/${i}`}>
+          <Link className="link left" to={i === 1 ? "/" : `/${i}`}>
             {"<"}- Exercise {i}
           </Link>
         )}
@@ -28,12 +31,11 @@ const routes = [Ex1, Ex2, Ex3, Ex4, Ex5].map((C, i, arr) => (
   />
 ));
 
+const [firstRoute] = routes;
+
 const Root = () => (
   <BrowserRouter>
-    <Switch>
-      <Route exact path="/" component={Ex5} />
-      {routes}
-    </Switch>
+    <Switch>{routes}</Switch>
   </BrowserRouter>
 );
 

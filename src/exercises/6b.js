@@ -4,42 +4,40 @@ import PlayerMover from "../components/PlayerMover";
 import { Player, Wrapper, World } from "../components/styled";
 import Slider from "../components/Slider";
 /*
-Exercise 5
-Theory: 
-Practice: Player reducer
+Exercise 6
+Theory: Higher-order function
+Practice: Player reducer (with handleAction)
 */
 
 /*
 Notes for me:
-Now you are ready to do some real FP stuff 😎.
-- It is good to receive all properties from the action (ex: step)
-  The reducer is responsible for the how the state changes not how much
-
+- Talk about what problem we solve
 */
 
-// 🦄: The reducer should return a NEW state based on the action it receives.
-// The action has a "type" property that indicates what is happening in the app.
-// ------
-// In this example only one type of action can be dispatched:
-// - {type: 'PLAYER_MOVED'}
-// But the action can have other useful properties except of "type".
-// Our action have following additional properties:
-// - key: the keyboard button that the user pressed
-// The only possibles keys in this app are: "w", "a", "s" and "d" (🎮🔫)
-// - step: the distance that the player is moving
-// Ex: {type: 'PLAYER_MOVED', key:'w', step: 30}
-// Tip: you can use "console.log(action)" to see that is inside an action.
-// Just press one of the keys: "w", "a", "s", "d".
-// ------
 // The state indicates the coordinates of the player.
 // It has the following shape: {x: 0, y: 0}
 function reducer(state, action) {
   // You can use these constants in your code
   const { x, y } = state;
   const { type, key, step } = action;
-  // Write you code here 👇
 
-  // console.log(action);
+  if (type === "PLAYER_MOVED") {
+    if (key === "w") {
+      return { x: x, y: y + step };
+    }
+
+    if (key === "s") {
+      return { x: x, y: y - step };
+    }
+
+    if (key === "a") {
+      return { x: x - step, y: y };
+    }
+
+    if (key === "d") {
+      return { x: x + step, y: y };
+    }
+  }
 
   // the reducer should always return the state
   // even if it's not modifying it
