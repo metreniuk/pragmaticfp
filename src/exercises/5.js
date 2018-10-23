@@ -1,75 +1,144 @@
-import React, { Fragment } from "react";
-import State from "../state/State";
-import PlayerMover from "../components/PlayerMover";
-import { Player, Wrapper, World } from "../components/styled";
+import React from "react";
 /*
-Exercise 5
-Theory: 
-Practice: Player reducer
+  Exercise 5. 
 */
 
-/*
-Notes for me:
-- Introduce the "PLAYER_MOVED" action
-- It is good to receive all properties from the action (ex: step)
-  The reducer is responsible for the how the state changes not how much
-- Introduce a new "RESET" action
-*/
+const students = [
+  {
+    name: "Ana 🙋‍♀️",
+    grade: 10,
+    gender: "F",
+    dateOfBirth: {
+      day: 10,
+      month: 9,
+      year: 1997
+    },
+    nationality: "🇲🇩",
+    cityOfBirth: "Ungheni",
+    scolarship: 700
+  },
+  {
+    name: "Vasile 🤦‍♂️",
+    grade: 4,
+    gender: "M",
+    dateOfBirth: {
+      day: 20,
+      month: 11,
+      year: 1996
+    },
+    nationality: "🇹🇩",
+    cityOfBirth: "Bucuresti",
+    scolarship: 0
+  },
+  {
+    name: "Maria 💇‍♀️",
+    grade: 8,
+    gender: "F",
+    dateOfBirth: {
+      day: 10,
+      month: 9,
+      year: 2000
+    },
+    nationality: "🇲🇩",
+    cityOfBirth: "Chisinau",
+    scolarship: 500
+  },
+  {
+    name: "Ion 🤷‍♂️",
+    grade: 8,
+    gender: "F",
+    dateOfBirth: {
+      day: 10,
+      month: 9,
+      year: 1995
+    },
+    nationality: "🇲🇩",
+    cityOfBirth: "Balti",
+    scolarship: 500
+  },
+  {
+    name: "Olga 🤦‍♀",
+    grade: 7,
+    gender: "F",
+    dateOfBirth: {
+      day: 10,
+      month: 9,
+      year: 1995
+    },
+    nationality: "🇲🇩",
+    cityOfBirth: "Balti",
+    scolarship: 400
+  }
+];
 
-// 🦄: The reducer should return a NEW state based on the action it receives.
-// The action has a "type" property that indicates what is happening in the app.
-// ------
-// In this example only one type of action can be dispatched:
-// - {type: 'PLAYER_MOVED'}
-// But the action can have other useful properties except of "type".
-// Our action have following additional properties:
-// - key: the keyboard button that the user pressed
-// The only possibles keys in this app are: "w", "a", "s" and "d" (🎮🔫)
-// - step: the distance that the player is moving
-// Ex: {type: 'PLAYER_MOVED', key:'w', step: 30}
-// Tip: you can use "console.log(action)" to see that is inside an action.
-// Just press one of the keys: "w", "a", "s", "d".
-// ------
-// The state indicates the coordinates of the player.
-// It has the following shape: {x: 0, y: 0}
-function reducer(state, action) {
-  // You can use these constants in your code
-  const { x, y } = state;
-  const { type, key, step } = action;
-  // Write you code here 👇
+function isGood(student) {
+  return student.grade > 6;
+}
 
-  // console.log(action);
+function isOlderThanTwenty(student) {
+  const dateOfBirth = student.dateOfBirth;
+  const year = dateOfBirth.year;
+  const month = dateOfBirth.month;
+  const now = new Date();
+  const yearDiff = now.getFullYear() - year;
+  const monthDiff = now.getMonth() - month;
+  return yearDiff === 0 ? monthDiff >= 0 : yearDiff > 20;
+}
 
-  // the reducer should always return the state
-  // even if it's not modifying it
-  return state;
+function isBoy(student) {
+  return student.gender === "M";
+}
+
+function isGirl(student) {
+  return student.gender === "M";
+}
+
+/**
+ * "processStudents" should perform following tasks:
+ * 1. Should return the students that have the grade greater than 7.
+ * 2. Should return the students that are older than 20.
+ * 3. Should count the boys.
+ * 4. Should count the girls.
+ */
+
+function processStudents(students) {
+  /**
+   * 🦄: Refactor "processStudents"
+   * 1. Use the "filter" method on "students" to filter the students
+   * that are good and older than 20.
+   * 📖 The ".filter" returns a new array that can be filtered again.
+   * 2. Use the "filter" method on "students" to filter the boys.
+   * 3. Use the "filter" method on "students" to filter the gilrs.
+   * 📖 The ".length" property will tell the count of elements in an array.
+   */
+
+  const filteredStudents = [];
+  let boysCount = 0;
+  let girlsCount = 0;
+
+  for (let i = 0; i < students.length; i++) {
+    const student = students[i];
+
+    if (isGood(student) && isOlderThanTwenty(student)) {
+      filteredStudents.push(student);
+    }
+
+    if (isBoy(student)) {
+      boysCount++;
+    } else {
+      girlsCount++;
+    }
+  }
+
+  return {
+    students: filteredStudents,
+    boys: boysCount,
+    girls: girlsCount
+  };
 }
 
 // 🌈This is a fancy way to write html inside JavaScript
 // think of it just as html on steroids.
 // Don't touch it 👀(at least if you don't know what you are doing).
-const Usage = props => {
-  const initialState = {
-    x: 0,
-    y: 0
-  };
-
-  return (
-    <Wrapper>
-      <State initialState={initialState} reducer={reducer}>
-        {({ state, dispatch, playHistory, slide }) => (
-          <Fragment>
-            <button onClick={() => dispatch({ type: "RESET" })}>reset</button>
-            <World>
-              <PlayerMover dispatch={dispatch}>
-                {() => <Player x={state.x} y={state.y} onClick={playHistory} />}
-              </PlayerMover>
-            </World>
-          </Fragment>
-        )}
-      </State>
-    </Wrapper>
-  );
-};
-
+const Usage = () => <div>{}</div>;
 export default Usage;

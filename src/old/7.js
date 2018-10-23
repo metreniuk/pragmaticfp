@@ -2,12 +2,15 @@ import React, { Fragment } from "react";
 import State from "../state/State";
 import PlayerMover from "../components/PlayerMover";
 import { Player, Wrapper, World } from "../components/styled";
+import { add, evolve, subtract, flip } from "ramda";
 
 /*
 Exercise 7
 Theory: Composability
 Practice: Ramda??
 */
+
+const minus = flip(subtract);
 
 /*
 Notes for me:
@@ -42,28 +45,28 @@ function handleActions(handlers) {
   };
 }
 
-function handlePlayerMove(state, action) {
-  const { x, y } = state;
-  const { key, step } = action;
+// function handlePlayerMove(state, action) {
+//   const { x, y } = state;
+//   const { key, step } = action;
 
-  if (key === "w") {
-    return { x: x, y: y + step };
-  }
+//   if (key === "w") {
+//     return { x: x, y: y + step };
+//   }
 
-  if (key === "s") {
-    return { x: x, y: y - step };
-  }
+//   if (key === "s") {
+//     return { x: x, y: y - step };
+//   }
 
-  if (key === "a") {
-    return { x: x - step, y: y };
-  }
+//   if (key === "a") {
+//     return { x: x - step, y: y };
+//   }
 
-  if (key === "d") {
-    return { x: x + step, y: y };
-  }
+//   if (key === "d") {
+//     return { x: x + step, y: y };
+//   }
 
-  return state;
-}
+//   return state;
+// }
 
 function handleReset() {
   return { x: 0, y: 0 };
@@ -101,12 +104,30 @@ function handleReset() {
 // const handlePlayerMove = (state, action) =>
 //   playerMoves[action.key](state, action);
 
-// const transforms = step => ({
+// const makePlayerMoves = step => ({
 //   w: { y: add(step) },
 //   s: { y: minus(step) },
 //   a: { x: minus(step) },
 //   d: { x: add(step) }
 // });
+
+const moveLeft = step => ({ x: minus(step) });
+const moveRight = step => ({ x: add(step) });
+const moveTop = step => ({ y: add(step) });
+const moveBottom = step => ({ y: minus(step) });
+
+const makePlayerMoves = step => ({
+  w: moveTop(step),
+  s: moveBottom(step),
+  a: moveLeft(step),
+  d: moveRight(step)
+});
+
+const handlePlayerMove = (state, action) => {
+  const moves = makePlayerMoves(action.step);
+  const move = moves[action.key];
+  return evolve(move, state);
+};
 
 // The state indicates the coordinates of the player.
 // It has the following shape: {x: 0, y: 0}

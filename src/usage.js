@@ -3,13 +3,14 @@ import { BrowserRouter, Route, Link, Switch } from "react-router-dom";
 import Ex1 from "./exercises/1";
 import Ex2 from "./exercises/2";
 import Ex3 from "./exercises/3";
-import Ex4 from "./exercises/4";
-import Ex5 from "./exercises/5";
-import Ex6 from "./exercises/6";
-import Ex7 from "./exercises/7";
+// import Ex4 from "./exercises/4";
+// import Ex5 from "./exercises/5";
+// import Ex6 from "./exercises/6";
+// import Ex7 from "./exercises/7";
+import Test from "./exercises/test";
 
 // TODO Fix the bug with "/"
-const routes = [Ex1, Ex2, Ex3, Ex4, Ex5, Ex6, Ex7].map((C, i, arr) => (
+const routes = [Test, Ex1, Ex2, Ex3].map((C, i, arr) => (
   <Route
     key={i}
     path={i === 0 ? "/" : `/${i + 1}`}

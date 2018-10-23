@@ -76,29 +76,21 @@ function isGood(student) {
   return student.grade > 6;
 }
 
-function isOlderThanTwenty(student) {
+const isOlderThanTwenty = curry(function(now, student) {
   const dateOfBirth = student.dateOfBirth;
   const year = dateOfBirth.year;
   const month = dateOfBirth.month;
-  const now = new Date();
   const yearDiff = now.getFullYear() - year;
   const monthDiff = now.getMonth() - month;
   return yearDiff === 0 ? monthDiff >= 0 : yearDiff > 20;
-}
+});
 
-function isBoy(student) {
+const isOfGender = curry(function(gender, student) {
   return student.gender === "M";
-}
+});
 
-function isGirl(student) {
-  return student.gender === "M";
-}
-
-/**
- * 🦄:
- * 1. Refactor "isBoy" and "isGirl".
- * 2. [optional] Find a potential bug in the "isOlderThanTwenty" function 🤓.
- */
+const isBoy = isOfGender("M");
+const isGirl = isOfGender("F");
 
 function processStudents(students) {
   const filteredStudents = students

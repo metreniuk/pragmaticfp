@@ -1,46 +1,45 @@
 import React from "react";
 /*
-Exercise 3
-Theory: Currying
-Practice: Arrow functions
+  Exercise 3. More higher-order functions. Currying
 */
-let secondGreeting = "";
-/*
-Notes for me:
-Before
-- Show the add function example
-- convert to arrow function
-After
-- From Generalisation to specialization
-- the code reads naturally
 
-Example of usage:
-- making an ajax request
-function request(url) {
-  return data => {
-    // Making a request to the url using data
+const students = [
+  { name: "Ana 🙋‍♀️", grade: 10 },
+  { name: "Vasile 🤦‍♂️", grade: 4 },
+  { name: "Maria 💇‍♀️", grade: 8 },
+  { name: "Ion 🤷‍♂️", grade: 8 },
+  { name: "Olga 🤦‍♀", grade: 6 }
+];
+
+function isGood(student) {
+  return student.grade > 6;
+}
+
+function hasScolarship(student) {
+  return student.grade > 8;
+}
+
+function isNotGoingToPay(student) {
+  return student.grade > 4;
+}
+
+/**
+ * 🦄: "hasGradeGreaterThan" takes the grade as an argument
+ * and returns a new function that takes a student as an argument
+ * and returns "true" if the student's grade is greater than
+ * the "gradeToCompare"
+ */
+function hasGradeGreaterThan(gradeToCompare) {
+  // Write you code here 👇
+  return function(student) {
+    return student.grade > gradeToCompare;
   };
 }
 
-const loadUser = request("http://myserver/users");
-
-loadUser({ id: "123321" });
-*/
-
-function _greet(greeting, name) {
-  return greeting + ", " + name + "!";
-}
-
-const firstGreeting = _greet("Hi", "Alex");
-
-// Write you code here 👇
-// const greet =
-
-// 🦄: Your code should make this code work,
-// uncomment it whenever you are ready. 👇
-
-// const sayHelloTo = greet("Hello");
-// secondGreeting = sayHelloTo("👨‍💻/👩‍💻");
+// 🦄: Uncomment this code when you're done 👇
+// const isGood = hasGradeGreaterThan(6);
+// const hasScolarship = hasGradeGreaterThan(8);
+// const isNotGoingToPay = hasGradeGreaterThan(4);
 
 // 🌈This is a fancy way to write html inside JavaScript
 // think of it just as html on steroids.
@@ -48,8 +47,14 @@ const firstGreeting = _greet("Hi", "Alex");
 const Usage = () => (
   <div>
     {" "}
-    <div>{firstGreeting}</div>
-    <div>{secondGreeting}</div>
+    All:
+    <div>{students.map(student => student.name)}</div>
+    Good:
+    <div>{students.filter(isGood).map(student => student.name)}</div>
+    Has scolarship:
+    <div>{students.filter(hasScolarship).map(student => student.name)}</div>
+    Not going to pay:
+    <div>{students.filter(isNotGoingToPay).map(student => student.name)}</div>
   </div>
 );
 export default Usage;
