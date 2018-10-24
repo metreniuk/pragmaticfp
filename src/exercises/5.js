@@ -93,14 +93,6 @@ function isGirl(student) {
   return student.gender === "M";
 }
 
-/**
- * "processStudents" should perform following tasks:
- * 1. Should return the students that have the grade greater than 7.
- * 2. Should return the students that are older than 20.
- * 3. Should count the boys.
- * 4. Should count the girls.
- */
-
 function processStudents(students) {
   /**
    * 🦄: Refactor "processStudents"
@@ -111,6 +103,8 @@ function processStudents(students) {
    * 3. Use the "filter" method on "students" to filter the gilrs.
    * 📖 The ".length" property will tell the count of elements in an array.
    */
+
+  // Write you code here 👇
 
   const filteredStudents = [];
   let boysCount = 0;

@@ -11,17 +11,17 @@ const students = [
   { name: "Olga 🤦‍♀", grade: 6 }
 ];
 
-function isGood(student) {
-  return student.grade > 6;
-}
+// function isGood(student) {
+//   return student.grade > 6;
+// }
 
-function hasScolarship(student) {
-  return student.grade > 8;
-}
+// function hasScolarship(student) {
+//   return student.grade > 8;
+// }
 
-function isNotGoingToPay(student) {
-  return student.grade > 4;
-}
+// function isNotGoingToPay(student) {
+//   return student.grade > 4;
+// }
 
 /**
  * 🦄: "hasGradeGreaterThan" takes the grade as an argument
@@ -30,18 +30,18 @@ function isNotGoingToPay(student) {
  * the "gradeToCompare"
  */
 function hasGradeGreaterThan(gradeToCompare) {
-  // Write you code here 👇
-  return;
+  return function(student) {
+    return student.grade > gradeToCompare;
+  };
 }
 
 /**
  * 🦄: Uncomment this code when you're done 👇.
  * 📖 Don't forget to comment the "isGood", "hasScolarship" and  "isNotGoingToPay" from the top.
  */
-
-// const isGood = hasGradeGreaterThan(6);
-// const hasScolarship = hasGradeGreaterThan(8);
-// const isNotGoingToPay = hasGradeGreaterThan(4);
+const isGood = hasGradeGreaterThan(6);
+const hasScolarship = hasGradeGreaterThan(8);
+const isNotGoingToPay = hasGradeGreaterThan(4);
 
 // 🌈This is a fancy way to write html inside JavaScript
 // think of it just as html on steroids.

@@ -1,7 +1,7 @@
 import React from "react";
 import { curry } from "ramda";
 /*
-  Exercise 4b. 
+  Exercise 6
 */
 
 const students = [

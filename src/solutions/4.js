@@ -1,7 +1,6 @@
 import React from "react";
-import { curry } from "ramda";
 /*
-  Exercise 6. 
+  Exercise 4. 
 */
 
 const students = [
@@ -76,28 +75,42 @@ function isGood(student) {
   return student.grade > 6;
 }
 
-const isOlderThanTwenty = curry(function(now, student) {
+function isOlderThanTwenty(student) {
   const dateOfBirth = student.dateOfBirth;
   const year = dateOfBirth.year;
   const month = dateOfBirth.month;
+  const now = new Date();
   const yearDiff = now.getFullYear() - year;
   const monthDiff = now.getMonth() - month;
   return yearDiff === 0 ? monthDiff >= 0 : yearDiff > 20;
-});
+}
 
-const isOfGender = curry(function(gender, student) {
+function isBoy(student) {
   return student.gender === "M";
-});
+}
 
-const isBoy = isOfGender("M");
-const isGirl = isOfGender("F");
+function isGirl(student) {
+  return student.gender === "M";
+}
 
 function processStudents(students) {
-  const filteredStudents = students
-    .filter(isGood)
-    .filter(isOlderThanTwenty);
-  const boysCount = students.filter(isBoy).length;
-  const girlsCount = students.filter(isGirl).length;
+  const filteredStudents = [];
+  let boysCount = 0;
+  let girlsCount = 0;
+
+  for (let i = 0; i < students.length; i++) {
+    const student = students[i];
+
+    if (isGood(student) && isOlderThanTwenty(student)) {
+      filteredStudents.push(student);
+    }
+
+    if (isBoy(student)) {
+      boysCount++;
+    } else {
+      girlsCount++;
+    }
+  }
 
   return {
     students: filteredStudents,
