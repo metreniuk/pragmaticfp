@@ -125,5 +125,15 @@ function processStudents(students) {
 // 🌈This is a fancy way to write html inside JavaScript
 // think of it just as html on steroids.
 // Don't touch it 👀(at least if you don't know what you are doing).
-const Usage = () => <div>{}</div>;
+const Usage = () => {
+  const { students: s, boys, girls } = processStudents(students);
+  return (
+    <div>
+      Students:
+      {s.map(x => x.name)}
+      <br />
+      The dream team consists of {girls} girl(s) and {boys} boy(s)
+    </div>
+  );
+};
 export default Usage;

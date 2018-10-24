@@ -11,10 +11,6 @@ const students = [
   { name: "Olga 🤦‍♀", grade: 6 }
 ];
 
-/* 🦄: This function should return "true" or "false" depending on the student's grade.
-  If the student has a grade greater than 6 he is considered "good".
-  (the grade is not making you good or bad - don't stress 👌)
-*/
 function isGood(student) {
   // 📖 You can access a property from student using the dot "."
   // ex: "student.name" will return the name of the student

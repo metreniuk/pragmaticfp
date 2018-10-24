@@ -60,8 +60,6 @@ const routes = [S1, S2, S3, S4, S5, S6].map((C, i, arr) => (
   />
 ));
 
-const [firstRoute] = routes;
-
 const Root = () => (
   <BrowserRouter>
     <Switch>{routes}</Switch>
