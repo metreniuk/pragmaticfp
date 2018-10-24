@@ -49,15 +49,35 @@ const isNotGoingToPay = hasGradeGreaterThan(4);
 const Usage = () => (
   <div>
     {" "}
-    All:
-    <div>{students.map(student => student.name)}</div>
-    Good:
-    <div>{students.filter(isGood).map(student => student.name)}</div>
-    Has scolarship:
-    <div>{students.filter(hasScolarship).map(student => student.name)}</div>
-    Not going to pay:
-    <div>
-      {students.filter(isNotGoingToPay).map(student => student.name)}
+    <div className="heading">All:</div>
+    <div className="student-group">
+      {students.map(student => (
+        <div className={student.name}> {student.name} </div>
+      ))}
+    </div>
+    <div className="heading">Good:</div>
+    <div className="student-group">
+      {students
+        .filter(isGood)
+        .map(student => (
+          <div className={student.name}> {student.name} </div>
+        ))}
+    </div>
+    <div className="heading">Has scolarship:</div>
+    <div className="student-group">
+      {students
+        .filter(hasScolarship)
+        .map(student => (
+          <div className={student.name}> {student.name} </div>
+        ))}
+    </div>
+    <div className="heading">Not going to pay:</div>
+    <div className="student-group">
+      {students
+        .filter(isNotGoingToPay)
+        .map(student => (
+          <div className={student.name}> {student.name} </div>
+        ))}
     </div>
   </div>
 );

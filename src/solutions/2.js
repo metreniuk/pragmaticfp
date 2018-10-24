@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 /*
   Exercise 2. Higher-order functions
 */
@@ -22,6 +22,10 @@ function isGood(student) {
 // think of it just as html on steroids.
 // Don't touch it 👀(at least if you don't know what you are doing).
 const Usage = () => (
-  <div>{students.filter(isGood).map(student => student.name)}</div>
+  <Fragment>
+    {students
+      .filter(isGood)
+      .map(student => <div key={student.name}>{student.name}</div>)}
+  </Fragment>
 );
 export default Usage;

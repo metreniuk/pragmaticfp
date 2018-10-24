@@ -47,7 +47,7 @@ const students = [
   {
     name: "Ion 🤷‍♂️",
     grade: 8,
-    gender: "F",
+    gender: "M",
     dateOfBirth: {
       day: 10,
       month: 9,
@@ -91,15 +91,15 @@ function isBoy(student) {
 }
 
 function isGirl(student) {
-  return student.gender === "M";
+  return student.gender === "F";
 }
 
 function processStudents(students) {
   const filteredStudents = students
     .filter(isGood)
     .filter(isOlderThanTwenty);
-  const boysCount = students.filter(isBoy).length;
-  const girlsCount = students.filter(isGirl).length;
+  const boysCount = filteredStudents.filter(isBoy).length;
+  const girlsCount = filteredStudents.filter(isGirl).length;
 
   return {
     students: filteredStudents,
@@ -115,9 +115,10 @@ const Usage = () => {
   const { students: s, boys, girls } = processStudents(students);
   return (
     <div>
-      Students:
-      {s.map(x => x.name)}
-      <br />
+      <div className="heading">Students:</div>
+      <div className="student-group">
+        {s.map(student => <div key={student.name}> {student.name} </div>)}
+      </div>
       The dream team consists of {girls} girl(s) and {boys} boy(s)
     </div>
   );

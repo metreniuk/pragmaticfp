@@ -12,32 +12,15 @@ import S3 from "./solutions/3";
 import S4 from "./solutions/4";
 import S5 from "./solutions/5";
 import S6 from "./solutions/6";
+import Use1 from "./usages/1";
+import Use2 from "./usages/2";
+import Use3 from "./usages/3";
+import Use4 from "./usages/4";
+import Use5 from "./usages/5";
+import Use6 from "./usages/6";
 
 // TODO Fix the bug with "/"
-// const routes = [Ex1, Ex2, Ex3, Ex4, Ex5, Ex6].map((C, i, arr) => (
-//   <Route
-//     key={i}
-//     path={i === 0 ? "/" : `/${i + 1}`}
-//     exact={i === 0}
-//     render={() => (
-//       <Fragment>
-//         {!!i && (
-//           <Link className="link left" to={i === 1 ? "/" : `/${i}`}>
-//             {"<"}- Exercise {i}
-//           </Link>
-//         )}
-//         <C />
-//         {i + 1 !== arr.length && (
-//           <Link className="link right" to={`/${i + 2}`}>
-//             Exercise {i + 2} ->
-//           </Link>
-//         )}
-//       </Fragment>
-//     )}
-//   />
-// ));
-
-const routes = [S1, S2, S3, S4, S5, S6].map((C, i, arr) => (
+const routes = [Use1, Use2, Use3, Use4, Use5, Use6].map((C, i, arr) => (
   <Route
     key={i}
     path={i === 0 ? "/" : `/${i + 1}`}

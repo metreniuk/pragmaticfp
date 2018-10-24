@@ -46,7 +46,7 @@ const students = [
   {
     name: "Ion 🤷‍♂️",
     grade: 8,
-    gender: "F",
+    gender: "M",
     dateOfBirth: {
       day: 10,
       month: 9,
@@ -129,9 +129,10 @@ const Usage = () => {
   const { students: s, boys, girls } = processStudents(students);
   return (
     <div>
-      Students:
-      {s.map(x => x.name)}
-      <br />
+      <div className="heading">Students:</div>
+      <div className="student-group">
+        {s.map(student => <div key={student.name}> {student.name} </div>)}
+      </div>
       The dream team consists of {girls} girl(s) and {boys} boy(s)
     </div>
   );
